@@ -29,7 +29,6 @@ export const FIND_MANY_ORDER = gql`
       paymentMethod
       name
       address
-      types
       phone
       comment
       restaurant {
