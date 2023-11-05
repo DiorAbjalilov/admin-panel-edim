@@ -25,13 +25,13 @@ const emailRule = {
 
 const Login = () => {
   const { type } = useParams();
-  if (type === "admin") {
-    return <AdminLogin />;
-  }
-  if (type === "moderator") {
-    return <ModeratorLogin />;
-  }
-  return null;
+  // if (type === "admin") {
+  //   return <AdminLogin />;
+  // }
+  // if (type === "moderator") {
+  return <ModeratorLogin />;
+  // }
+  // return null;
 };
 
 const AdminLogin = () => {
@@ -116,7 +116,7 @@ const ModeratorLogin = () => {
 
   return (
     <Wrapper>
-      <Card title="Вход в панель модератора">
+      <Card title="Вход в панель Aдминистратора">
         <Form onFinish={handleSubmitForm} layout="vertical" name="login">
           <Form.Item
             colon={false}
@@ -133,7 +133,7 @@ const ModeratorLogin = () => {
             <Button loading={loading} type="primary" htmlType="submit">
               Войти
             </Button>
-            <Link to={`/admin/login`}>Войти как администратор</Link>
+            {/* <Link to={`/admin/login`}>Войти как администратор</Link> */}
           </Actions>
           <Link to={`/moderator/forgot`}>Забыли пароль?</Link>
         </Form>

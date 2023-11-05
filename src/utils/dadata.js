@@ -1,6 +1,7 @@
 export const getSuggest = (query, city) => {
   const url =
     "https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address";
+  // const token = "8753acf913358e811317d42c5de9ae8507ef716e";
   const token = "e4da68117133149ecd4eaa4d66deab0c1cc12345";
 
   var options = {
@@ -14,7 +15,13 @@ export const getSuggest = (query, city) => {
     body: JSON.stringify({
       query,
       count: 10,
-      locations: city ? [{ city }] : [{ kladr_id: "14" }],
+      // locations: city ? [{ city }] : [{ kladr_id: "14" }],
+      language: "en",
+      locations: [
+        {
+          country: "Узбекистан",
+        },
+      ],
     }),
   };
 

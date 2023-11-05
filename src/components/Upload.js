@@ -3,6 +3,7 @@ import { useMutation } from "@apollo/client";
 
 import { UPLOAD_FILE, DELETE_FILE } from "../gqls/upload";
 import { useEffect, useMemo, useState } from "react";
+import { URI_Assets } from "../utils/apollo";
 
 const UploadFile = ({ name, children, onChange, value }) => {
   const [file, setFile] = useState(null);
@@ -13,7 +14,7 @@ const UploadFile = ({ name, children, onChange, value }) => {
         uid: "-1",
         name: value,
         status: "done",
-        url: "/uploads/" + value,
+        url: URI_Assets + "/" + value,
       });
     } else {
     }
@@ -71,7 +72,6 @@ const UploadFile = ({ name, children, onChange, value }) => {
   };
 
   const fileList = useMemo(() => (file ? [file] : []), [file]);
-
   return (
     <Upload
       fileList={fileList}

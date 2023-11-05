@@ -3,8 +3,9 @@ import { onError } from "@apollo/client/link/error";
 import { setContext } from "@apollo/client/link/context";
 import { createUploadLink } from "apollo-upload-client";
 
-const uri = "/graphql";
-// const uri = "http://192.168.0.104:4000/graphql";
+// const uri = "/graphql";
+const uri = "http://localhost:4001/graphql";
+export const URI_Assets = "http://localhost:4001/uploads";
 
 const authLink = setContext((_, { headers }) => {
   const token = localStorage.getItem("token");

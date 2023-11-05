@@ -1,7 +1,17 @@
 import { useMemo, useState } from "react";
-import { Button, Form as AntForm, Input, message, Select, Switch } from "antd";
+import {
+  Button,
+  Form as AntForm,
+  Input,
+  message,
+  Select,
+  Switch,
+  Card,
+  Space,
+} from "antd";
 import styled from "styled-components";
 import { useMutation, useQuery } from "@apollo/client";
+import { CloseOutlined } from "@ant-design/icons";
 
 import Top from "../../../components/Top";
 import UploadFile from "../../../components/Upload";
@@ -48,6 +58,10 @@ const rules = {
 const AddProduct = () => {
   const { user } = useUser("moderator");
   const [form] = Form.useForm();
+  const [type, setType] = useState([
+    { title: "", data: [{ name: "", count: 0, price: 0 }] },
+    { title: "", data: [{ name: "", count: 0, price: 0 }] },
+  ]);
   const [image, setImage] = useState("");
   const variables = useMemo(
     () => ({
@@ -162,6 +176,80 @@ const AddProduct = () => {
             ))}
           </Select>
         </Form.Item>
+        <Form.List name="types">
+          {(fields, { add, remove }) => (
+            <div
+              style={{ display: "flex", rowGap: 16, flexDirection: "column" }}
+            >
+              {fields.map((field) => (
+                <Card
+                  size="small"
+                  title={`Тип ${field.name + 1}`}
+                  key={field.key}
+                  extra={
+                    <CloseOutlined
+                      onClick={() => {
+                        remove(field.name);
+                      }}
+                    />
+                  }
+                >
+                  <Form.Item label="Имя" name={[field.name, "name"]}>
+                    <Input />
+                  </Form.Item>
+
+                  {/* Nest Form.List */}
+                  <Form.Item label="Список">
+                    <Form.List name={[field.name, "list"]}>
+                      {(subFields, subOpt) => (
+                        <div
+                          style={{
+                            display: "flex",
+                            flexDirection: "column",
+                            rowGap: 10,
+                          }}
+                        >
+                          {subFields.map((subField) => (
+                            <Space key={subField.key}>
+                              <Form.Item
+                                noStyle
+                                name={[subField.name, "title"]}
+                              >
+                                <Input placeholder="title" />
+                              </Form.Item>
+                              <Form.Item
+                                noStyle
+                                name={[subField.name, "price"]}
+                              >
+                                <Input placeholder="price" />
+                              </Form.Item>
+                              <CloseOutlined
+                                onClick={() => {
+                                  subOpt.remove(subField.name);
+                                }}
+                              />
+                            </Space>
+                          ))}
+                          <Button
+                            type="dashed"
+                            onClick={() => subOpt.add()}
+                            block
+                          >
+                            + добавить внутренний тип
+                          </Button>
+                        </div>
+                      )}
+                    </Form.List>
+                  </Form.Item>
+                </Card>
+              ))}
+
+              <Button type="dashed" onClick={() => add()} block>
+                + добавить тип
+              </Button>
+            </div>
+          )}
+        </Form.List>
         <Form.Item name="publish" label="Опубликован" valuePropName="checked">
           <Switch />
         </Form.Item>
