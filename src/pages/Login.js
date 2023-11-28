@@ -25,13 +25,13 @@ const emailRule = {
 
 const Login = () => {
   const { type } = useParams();
-  // if (type === "admin") {
-  //   return <AdminLogin />;
-  // }
-  // if (type === "moderator") {
-  return <ModeratorLogin />;
-  // }
-  // return null;
+  if (type === "admin") {
+    return <AdminLogin />;
+  }
+  if (type === "moderator") {
+    return <ModeratorLogin />;
+  }
+  return null;
 };
 
 const AdminLogin = () => {
